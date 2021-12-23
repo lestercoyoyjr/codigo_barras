@@ -1,5 +1,13 @@
 <?php
+    // NO SE REQUIERE DE UN INCLUDE PARA LA LIBRERIA
+    require "conexion.php";
 
+    // traer todos los productos
+    $sql = "SELECT codigo_barras FROM productos";
+    $resultado = $mysqli->query($sql);
+
+    while ($row = $resultado->fetch_assoc()){
+        // we're going to work with html
 ?>
 
 <!--Para que muestre los datos a nivel de html-->
@@ -13,4 +21,10 @@ Code Type: Code39
 Orientation: Default = Horizontal
 Print: true -->
 
-<img src="barcode.php?text=0123456789&size=40&codetype=Code39&Orientation=vertical&sizefactor=1" />
+<img src="barcode.php?text=<?php echo $row['codigo_barras']?>&size=50&codetype=Code39&print=true&Orientation=horizontal&sizefactor=1" />
+
+<br>
+<!--We close the while-->
+<?php } ?>
+<!--For the user can generate an image-->
+<!-- <a href="barcode.php?text=0123456789&size=50&Orientation=vertical">Generar</a> -->
